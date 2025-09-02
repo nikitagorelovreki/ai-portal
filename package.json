@@ -1,0 +1,40 @@
+{
+  "name": "aiportal",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "fetch-notion": "ts-node scripts/fetch-notion.ts",
+    "sync-notion": "ts-node scripts/sync-notion.ts",
+    "sync-tasks-tracker": "ts-node scripts/sync-tasks-tracker.ts",
+    "clear-qdrant": "ts-node scripts/clear-qdrant.ts",
+    "test-qdrant": "ts-node scripts/test-qdrant.ts",
+    "test-telegram": "ts-node scripts/test-telegram.ts",
+    "test-telegram-basic": "ts-node scripts/test-telegram-basic.ts",
+    "sync-notion-test": "ts-node scripts/sync-notion-test.ts",
+    "sync-notion-test-dry": "ts-node scripts/sync-notion-test-dry.ts",
+    "setup-ollama": "ts-node scripts/setup-ollama.ts",
+    "cleanup-qdrant": "ts-node scripts/cleanup-qdrant.ts --",
+    "start-bot": "ts-node src/telegram/query-bot.ts",
+    "start-channel-bot": "ts-node src/telegram/channel-bot.ts",
+    "notion-sync-daemon": "ts-node scripts/notion-sync-daemon.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@notionhq/client": "^4.0.1",
+    "@qdrant/js-client-rest": "^1.15.0",
+    "@types/node": "^24.1.0",
+    "grammy": "^1.37.0",
+    "ollama": "^0.5.16",
+    "openai": "^5.10.2",
+    "typescript": "^5.8.3"
+  },
+  "devDependencies": {
+    "dotenv": "^16.3.1",
+    "ts-node": "^10.9.1"
+  }
+}
