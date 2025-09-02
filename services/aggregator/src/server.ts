@@ -40,6 +40,9 @@ const start = async () => {
     const db = new DatabaseService();
     await db.connect();
     
+    // Add database to fastify instance
+    server.decorate('db', db);
+    
     // Initialize cron jobs
     const cron = new CronService(db);
     cron.start();
