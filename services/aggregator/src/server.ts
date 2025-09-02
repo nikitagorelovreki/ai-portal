@@ -44,8 +44,8 @@ const start = async () => {
     const cron = new CronService(db);
     cron.start();
     
-    await server.listen({ port: 3000, host: '0.0.0.0' });
-    console.log('🚀 Server running on http://localhost:3000');
+    await server.listen({ port: 3100, host: '0.0.0.0' });
+    console.log('🚀 Server running on http://localhost:3100');
   } catch (err) {
     server.log.error(err);
     process.exit(1);

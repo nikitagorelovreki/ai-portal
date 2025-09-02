@@ -415,7 +415,7 @@ API_JWT_SECRET=...
 TZ=Asia/Bangkok
 
 # Health
-HEALTH_API_URL=http://localhost:3000
+HEALTH_API_URL=http://localhost:3100
 ```
 
 ### Docker Compose
@@ -436,7 +436,7 @@ services:
   aggregator:
     build: ./services/aggregator
     ports:
-      - "3000:3000"
+      - "3100:3100"
     environment:
       - DATABASE_URL=postgres://user:pass@postgres:5432/wlnx_health
     depends_on:

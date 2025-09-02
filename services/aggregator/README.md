@@ -68,7 +68,7 @@ API_JWT_SECRET=your_jwt_secret_here
 TZ=Asia/Bangkok
 
 # Health
-HEALTH_API_URL=http://localhost:3000
+HEALTH_API_URL=http://localhost:3100
 
 # Logging
 LOG_LEVEL=info
@@ -133,14 +133,14 @@ docker-compose up
 
 ### Обновление профиля
 ```bash
-curl -X POST http://localhost:3000/ingest/health/profile \
+curl -X POST http://localhost:3100/ingest/health/profile \
   -H "Content-Type: application/json" \
   -d '{"dob": "1990-01-01", "apple_health_uid": "user123"}'
 ```
 
 ### Загрузка шагов
 ```bash
-curl -X POST http://localhost:3000/ingest/health/steps \
+curl -X POST http://localhost:3100/ingest/health/steps \
   -H "Content-Type: application/json" \
   -d '{
     "items": [
@@ -152,7 +152,7 @@ curl -X POST http://localhost:3000/ingest/health/steps \
 
 ### Получение совета
 ```bash
-curl http://localhost:3000/advice/today
+curl http://localhost:3100/advice/today
 ```
 
 ## 🚀 Разработка

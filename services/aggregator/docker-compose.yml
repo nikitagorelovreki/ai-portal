@@ -22,7 +22,7 @@ services:
     build: .
     container_name: wlnx_health_aggregator
     ports:
-      - "3000:3000"
+      - "3100:3100"
     environment:
       - DATABASE_URL=postgres://user:pass@postgres:5432/wlnx_health
       - NODE_ENV=development
