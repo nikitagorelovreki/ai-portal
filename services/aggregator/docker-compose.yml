@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: wlnx_health_postgres
+    environment:
+      POSTGRES_DB: wlnx_health
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d wlnx_health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  aggregator:
+    build: .
+    container_name: wlnx_health_aggregator
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgres://user:pass@postgres:5432/wlnx_health
+      - NODE_ENV=development
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./src:/app/src
+      - ./migrations:/app/migrations
+    command: npm run dev
+
+volumes:
+  postgres_data:
