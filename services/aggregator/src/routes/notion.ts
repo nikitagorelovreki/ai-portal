@@ -2,7 +2,7 @@ import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
 import { NotionService } from '../services/notionService';
 
 export async function notionRoutes(fastify: FastifyInstance) {
-  const notionService = new NotionService(fastify.db);
+  const notionService = new NotionService((fastify as any).db);
 
   // POST /sync/notion
   fastify.post('/notion', async (request: FastifyRequest, reply: FastifyReply) => {
@@ -15,7 +15,7 @@ export async function notionRoutes(fastify: FastifyInstance) {
         parsed_goals: result.parsedGoals.length
       };
     } catch (error) {
-      fastify.log.error('Error syncing Notion:', error);
+      fastify.log.error('Error syncing Notion:', error as any);
       return reply.status(500).send({ error: 'Failed to sync Notion' });
     }
   });
@@ -32,7 +32,7 @@ export async function notionRoutes(fastify: FastifyInstance) {
         active_goals: status.activeGoals
       };
     } catch (error) {
-      fastify.log.error('Error getting sync status:', error);
+      fastify.log.error('Error getting sync status:', error as any);
       return reply.status(500).send({ error: 'Failed to get sync status' });
     }
   });

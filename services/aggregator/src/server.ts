@@ -12,8 +12,7 @@ dotenv.config();
 
 const server = fastify({
   logger: {
-    level: process.env.LOG_LEVEL || 'info',
-    prettyPrint: process.env.NODE_ENV === 'development'
+    level: process.env.LOG_LEVEL || 'info'
   }
 });
 
@@ -27,6 +26,7 @@ server.register(helmet);
 server.register(healthRoutes, { prefix: '/ingest/health' });
 server.register(notionRoutes, { prefix: '/sync' });
 server.register(metricsRoutes, { prefix: '/metrics' });
+server.register(metricsRoutes, { prefix: '/advice' });
 
 // Health check
 server.get('/healthcheck', async () => {

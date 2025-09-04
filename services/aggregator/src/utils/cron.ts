@@ -32,9 +32,7 @@ export class CronService {
         console.log('🌅 Sending morning advice...');
         const advice = await this.adviceService.getTodayAdvice();
         console.log('✅ Morning advice sent:', advice.message);
-        
-        // TODO: Отправить в Telegram бот
-        // await this.sendTelegramAdvice(advice);
+        // TODO: Интеграция с Telegram ботом
       } catch (error) {
         console.error('❌ Error sending morning advice:', error);
       }
@@ -46,9 +44,7 @@ export class CronService {
         console.log('🌙 Sending evening advice...');
         const advice = await this.adviceService.getTodayAdvice();
         console.log('✅ Evening advice sent:', advice.message);
-        
-        // TODO: Отправить в Telegram бот
-        // await this.sendTelegramAdvice(advice);
+        // TODO: Интеграция с Telegram ботом
       } catch (error) {
         console.error('❌ Error sending evening advice:', error);
       }
@@ -59,7 +55,6 @@ export class CronService {
       try {
         console.log('🔄 Checking Notion sync status...');
         // TODO: Проверить статус синхронизации и при необходимости запустить
-        // await this.checkNotionSync();
       } catch (error) {
         console.error('❌ Error checking Notion sync:', error);
       }
@@ -70,19 +65,7 @@ export class CronService {
 
   stop(): void {
     console.log('🛑 Stopping cron jobs...');
-    cron.getTasks().forEach(task => task.stop());
+    cron.getTasks().forEach((task: any) => task.stop());
     console.log('✅ Cron jobs stopped');
-  }
-
-  // TODO: Метод для отправки советов в Telegram
-  private async sendTelegramAdvice(advice: any): Promise<void> {
-    // Здесь будет интеграция с Telegram ботом
-    console.log('📱 Would send to Telegram:', advice.message);
-  }
-
-  // TODO: Метод для проверки синхронизации Notion
-  private async checkNotionSync(): Promise<void> {
-    // Здесь будет логика проверки необходимости синхронизации
-    console.log('📝 Checking if Notion sync is needed...');
   }
 }

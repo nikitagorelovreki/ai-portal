@@ -40,7 +40,7 @@ export class HealthService {
     today.setHours(0, 0, 0, 0);
     
     // Получаем сырые данные за сегодня
-    const result = await this.db.pool.query(
+    const result = await (this.db as any).pool.query(
       `SELECT 
         EXTRACT(HOUR FROM ts) as hour,
         SUM(count_delta) as steps
@@ -58,7 +58,7 @@ export class HealthService {
     let stepsTotal = 0;
 
     for (let hour = 0; hour < 24; hour++) {
-      const hourData = result.rows.find(row => row.hour === hour);
+      const hourData = result.rows.find((row: any) => row.hour === hour);
       const steps = hourData ? parseInt(hourData.steps) : 0;
       stepsByHour[hour] = steps;
       stepsTotal += steps;

@@ -2,7 +2,7 @@ import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
 import { AdviceService } from '../services/adviceService';
 
 export async function metricsRoutes(fastify: FastifyInstance) {
-  const adviceService = new AdviceService(fastify.db);
+  const adviceService = new AdviceService((fastify as any).db);
 
   // GET /metrics/daily?date=YYYY-MM-DD
   fastify.get('/daily', async (request: FastifyRequest<{ Querystring: { date?: string } }>, reply: FastifyReply) => {
@@ -12,7 +12,7 @@ export async function metricsRoutes(fastify: FastifyInstance) {
       
       return { success: true, ...metrics };
     } catch (error) {
-      fastify.log.error('Error getting daily metrics:', error);
+      fastify.log.error('Error getting daily metrics:', error as any);
       return reply.status(500).send({ error: 'Failed to get daily metrics' });
     }
   });
@@ -24,7 +24,7 @@ export async function metricsRoutes(fastify: FastifyInstance) {
       
       return { success: true, ...advice };
     } catch (error) {
-      fastify.log.error('Error getting today advice:', error);
+      fastify.log.error('Error getting today advice:', error as any);
       return reply.status(500).send({ error: 'Failed to get advice' });
     }
   });
@@ -36,7 +36,7 @@ export async function metricsRoutes(fastify: FastifyInstance) {
       
       return { success: true, ...weeklyPlan };
     } catch (error) {
-      fastify.log.error('Error getting weekly plan:', error);
+      fastify.log.error('Error getting weekly plan:', error as any);
       return reply.status(500).send({ error: 'Failed to get weekly plan' });
     }
   });

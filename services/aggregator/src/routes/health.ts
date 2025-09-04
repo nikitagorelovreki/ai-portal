@@ -15,12 +15,19 @@ const stepsDataSchema = z.object({
 });
 
 export async function healthRoutes(fastify: FastifyInstance) {
-  const healthService = new HealthService(fastify.db);
+  const healthService = new HealthService((fastify as any).db);
 
   // POST /ingest/health/profile
   fastify.post('/profile', {
     schema: {
-      body: healthProfileSchema
+      body: {
+        type: 'object',
+        properties: {
+          dob: { type: 'string' },
+          apple_health_uid: { type: 'string' }
+        },
+        required: ['dob']
+      }
     }
   }, async (request: FastifyRequest<{ Body: z.infer<typeof healthProfileSchema> }>, reply: FastifyReply) => {
     try {
@@ -29,7 +36,7 @@ export async function healthRoutes(fastify: FastifyInstance) {
       
       return { success: true, user_id: userId };
     } catch (error) {
-      fastify.log.error('Error updating health profile:', error);
+      fastify.log.error('Error updating health profile:', error as any);
       return reply.status(500).send({ error: 'Failed to update profile' });
     }
   });
@@ -37,7 +44,23 @@ export async function healthRoutes(fastify: FastifyInstance) {
   // POST /ingest/health/steps
   fastify.post('/steps', {
     schema: {
-      body: stepsDataSchema
+      body: {
+        type: 'object',
+        properties: {
+          items: {
+            type: 'array',
+            items: {
+              type: 'object',
+              properties: {
+                ts: { type: 'string' },
+                count_delta: { type: 'number' }
+              },
+              required: ['ts', 'count_delta']
+            }
+          }
+        },
+        required: ['items']
+      }
     }
   }, async (request: FastifyRequest<{ Body: z.infer<typeof stepsDataSchema> }>, reply: FastifyReply) => {
     try {
@@ -46,7 +69,7 @@ export async function healthRoutes(fastify: FastifyInstance) {
       
       return { success: true, processed: items.length };
     } catch (error) {
-      fastify.log.error('Error ingesting steps data:', error);
+      fastify.log.error('Error ingesting steps data:', error as any);
       return reply.status(500).send({ error: 'Failed to ingest steps data' });
     }
   });

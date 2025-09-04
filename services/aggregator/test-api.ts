@@ -38,7 +38,7 @@ async function testAPI() {
 
     // Test advice
     console.log('\n5. Testing advice...');
-    const advice = await axios.get(`${API_BASE}/advice/today`);
+    const advice = await axios.get(`${API_BASE}/metrics/advice/today`);
     console.log('✅ Today advice:', advice.data);
 
     console.log('\n🎉 All tests passed!');
